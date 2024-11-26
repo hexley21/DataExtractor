@@ -72,9 +72,9 @@ func RunE(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	keys := extractor.New().Keys(data)
+	keys, viewKeys := extractor.New().Keys(data)
 
-	selected, err := multi_select.DisplayChecklist(keys, cfg.Colors.MultiSelect[fileExt])
+	selected, err := multi_select.DisplayChecklist(keys, viewKeys, cfg.Colors.MultiSelect[fileExt])
 	if err != nil {
 		return err
 	}

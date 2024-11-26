@@ -19,91 +19,55 @@ func New() *ExtractorImpl {
 	return &ExtractorImpl{}
 }
 
-func (ex *ExtractorImpl) Keys(data interface{}) []string {
-	switch data := data.(type) {
+func (ex *ExtractorImpl) Keys(data interface{}) ([]string, []string) {
+	var keys []string
+	var viewKeys []string
+	seen := make(map[string]struct{})
+	ex.extractKeys(data, "", &keys, &viewKeys, seen)
+	return keys, viewKeys
+}
+
+func (ex *ExtractorImpl) extractKeys(data interface{}, prefix string, keys *[]string, viewKeys *[]string, seen map[string]struct{}) {
+	switch v := data.(type) {
 	case map[string]interface{}:
-		return ex.objectKeys(data)
+		for key, value := range v {
+			if _, ok := seen[key]; !ok {
+				seen[key] = struct{}{}
+				*keys = append(*keys, key)
+				*viewKeys = append(*viewKeys, prefix+key)
+			}
+			ex.extractKeys(value, prefix+"  ", keys, viewKeys, seen)
+		}
 	case []interface{}:
-		return ex.arrayKeys(data, &[]string{})
-	default:
-		return nil
-	}
-}
-
-func (ex *ExtractorImpl) objectKeys(data map[string]interface{}) []string {
-	keys := make([]string, len(data))
-
-	var i int
-	for key := range data {
-		keys[i] = key
-		i++
-	}
-
-	return keys
-}
-
-func (ex *ExtractorImpl) arrayKeys(array []interface{}, keys *[]string) []string {
-	for _, data := range array {
-		switch data := data.(type) {
-		case map[string]interface{}:
-			*keys = append(*keys, ex.objectKeys(data)...)
-		case []interface{}:
-			return ex.arrayKeys(data, keys)
-		default:
-			return nil
+		for _, item := range v {
+			ex.extractKeys(item, prefix, keys, viewKeys, seen)
 		}
 	}
-
-	return removeDuplicateKeys(*keys)
-}
-
-func removeDuplicateKeys(slice []string) []string {
-	seen := make(map[string]bool)
-	result := []string{}
-
-	for _, value := range slice {
-		if !seen[value] {
-			seen[value] = true
-			result = append(result, value)
-		}
-	}
-
-	return result
 }
 
 func (ex *ExtractorImpl) Data(data interface{}, keys []string) interface{} {
 	switch v := data.(type) {
 	case map[string]interface{}:
-		return ex.objectData(v, keys)
+		result := make(map[string]interface{})
+		for _, key := range keys {
+			if val, ok := v[key]; ok {
+				result[key] = ex.Data(val, keys)
+			}
+		}
+
+		if len(result) == 0 {
+			for key, val := range v {
+				result[key] = ex.Data(val, keys)
+			}
+		}
+		return result
 	case []interface{}:
-		return ex.arrayData(v, keys)
+		var result []interface{}
+		for _, item := range v {
+			result = append(result, ex.Data(item, keys))
+		}
+		return result
 	default:
 		return v
 	}
-}
-
-func (ex *ExtractorImpl) arrayData(data []interface{}, keys []string) interface{} {
-	var result []interface{}
-	for _, item := range data {
-		result = append(result, ex.Data(item, keys))
-	}
-	return result
-}
-
-func (ex *ExtractorImpl) objectData(data map[string]interface{}, keys []string) interface{} {
-	result := make(map[string]interface{})
-	for _, key := range keys {
-		if val, ok := data[key]; ok {
-			result[key] = ex.Data(val, keys)
-		}
-	}
-
-	if len(result) > 0 {
-		return result
-	}
-
-	for key, val := range data {
-		result[key] = ex.Data(val, keys)
-	}
-	return result
 }
