@@ -4,7 +4,6 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/hexley21/data_extractor/pkg/config"
 	"github.com/hexley21/data_extractor/pkg/serialization/json"
 	"github.com/hexley21/data_extractor/pkg/serialization/yaml"
 )
@@ -24,15 +23,12 @@ type Deserializer interface {
 	Deserialize(content []byte, data interface{}) error
 }
 
-func GetProcessor(fileExtension string, cfg config.Beautify, beautify bool) (Processor, error) {
+func GetProcessor(fileExtension string, indent int) (Processor, error) {
 	switch strings.ToLower(fileExtension) {
 	case ".json":
-		if beautify {
-			return json.New(&cfg.Json), nil
-		}
-		return json.New(nil), nil
+		return json.New(indent), nil
 	case ".yaml", ".yml":
-		return yaml.New(), nil
+		return yaml.New(indent), nil
 	}
 	return nil, ErrUnsuportedExtension
 }

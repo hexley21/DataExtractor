@@ -16,9 +16,10 @@ import (
 
 var (
 	ErrNoFileName = errors.New("no filename provided, shutting down")
+	ErrInvalidIndent = errors.New("invalid indent, positive integer expected")
 
 	cfg      *config.Config
-	beautify bool
+	indent   int
 )
 
 func Run(c *config.Config) error {
@@ -33,7 +34,7 @@ for now, only JSON extension is supported.`,
 		RunE: RunE,
 	}
 
-	rootCmd.Flags().BoolVarP(&beautify, "beautify", "b", false, "Enable beautify mode")
+	rootCmd.Flags().IntVarP(&indent, "indent", "i", 4, "Specify indent")
 
 	return rootCmd.Execute()
 }
@@ -44,10 +45,13 @@ func RunE(cmd *cobra.Command, args []string) error {
 	if fileArg == "" {
 		return ErrNoFileName
 	}
+	if indent < 0 {
+		return ErrInvalidIndent
+	}
 
 	fileExt := filepath.Ext(fileArg)
 
-	processor, err := serialization.GetProcessor(fileExt, cfg.Beautify, beautify)
+	processor, err := serialization.GetProcessor(fileExt, indent)
 	if err != nil {
 		return err
 	}

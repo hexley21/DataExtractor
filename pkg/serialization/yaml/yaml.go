@@ -10,8 +10,8 @@ type YamlProcessor struct{
 	indent int
 }
 
-func New() *YamlProcessor {
-	return &YamlProcessor{4}
+func New(indent int) *YamlProcessor {
+	return &YamlProcessor{indent}
 }
 
 func (p *YamlProcessor) Serialize(data interface{}) ([]byte, error) {

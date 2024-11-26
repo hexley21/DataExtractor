@@ -7,20 +7,11 @@ type (
 		AppName string `yaml:"app_name"`
 		CliName string `yaml:"cli_name"`
 
-		Beautify Beautify `yaml:"beautify"`
 		Colors struct {
 			MultiSelect map[string]MultiSelect `yaml:"multi_select"`
 		}
 	}
 
-	Beautify struct {
-		Json JsonBeutify  `yaml:".json"`
-	}
-
-	JsonBeutify struct {
-		Prefix string `yaml:"prefix"`
-		Indent string `yaml:"indent"`
-	}
 	MultiSelect struct {
 		Focused  string `yaml:"focused"`
 		Selected string `yaml:"selected"`

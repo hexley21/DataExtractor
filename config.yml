@@ -1,13 +1,6 @@
 app_name: DataExtractor
 cli_name: datex
 
-beautify:
-    .json:
-        indent: "\t"
-        prefix: ""
-    .yml:
-        indent: 16
-
 colors:
     multi_select:
         .json:
