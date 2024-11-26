@@ -1,0 +1,11 @@
+app_name: DataExtractor
+cli_name: datex
+
+colors:
+    multi_select:
+        .json:
+            focused: "#FFE31A"
+            selected: "#F09319"
+        .yml:
+            focused: "#E88EED"
+            selected: "#F9626C"
