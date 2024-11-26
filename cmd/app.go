@@ -15,11 +15,11 @@ import (
 )
 
 var (
-	ErrNoFileName = errors.New("no filename provided, shutting down")
+	ErrNoFileName    = errors.New("no filename provided, shutting down")
 	ErrInvalidIndent = errors.New("invalid indent, positive integer expected")
 
-	cfg      *config.Config
-	indent   int
+	cfg    *config.Config
+	indent int
 )
 
 func Run(c *config.Config) error {
@@ -28,10 +28,9 @@ func Run(c *config.Config) error {
 	rootCmd := &cobra.Command{
 		Use:   c.CliName + " [file]",
 		Short: "A CLI for extracting specified fields from any file format",
-		Long: c.AppName + ` is a CLI app that can extract only provided fields from a file and output the new resulting file.
-for now, only JSON extension is supported.`,
-		Args: cobra.ExactArgs(1),
-		RunE: RunE,
+		Long:  c.AppName + " is a CLI app that can extract only provided fields from a file and output the new resulting file.",
+		Args:  cobra.ExactArgs(1),
+		RunE:  RunE,
 	}
 
 	rootCmd.Flags().IntVarP(&indent, "indent", "i", 4, "Specify indent")
