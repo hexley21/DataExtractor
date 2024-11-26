@@ -108,10 +108,10 @@ func getSelectedStyle(color string) lipgloss.Style {
 	return lipgloss.NewStyle().PaddingLeft(1).Foreground(lipgloss.Color(color)).Bold(true)
 }
 
-func DisplayChecklist(keys []string, colors config.MultiSelect) ([]string, error) {
+func DisplayChecklist(keys []string, viewKeys []string, colors config.MultiSelect) ([]string, error) {
 	selected := make(map[int]struct{})
 
-	model := initialModel(keys, selected, colors)
+	model := initialModel(viewKeys, selected, colors)
 
 	p := tea.NewProgram(model)
 	if _, err := p.Run(); err != nil {
