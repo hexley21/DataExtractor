@@ -1,8 +1,6 @@
 package config
 
-import (
-	"gopkg.in/yaml.v3"
-)
+import "gopkg.in/yaml.v3"
 
 type (
 	Config struct {
@@ -10,7 +8,6 @@ type (
 		CliName string `yaml:"cli_name"`
 
 		Beautify Beautify `yaml:"beautify"`
-
 		Colors struct {
 			MultiSelect map[string]MultiSelect `yaml:"multi_select"`
 		}
@@ -18,17 +15,12 @@ type (
 
 	Beautify struct {
 		Json JsonBeutify  `yaml:".json"`
-		Yaml YamlBeautify `yaml:".yaml"`
 	}
 
 	JsonBeutify struct {
 		Prefix string `yaml:"prefix"`
 		Indent string `yaml:"indent"`
 	}
-	YamlBeautify struct {
-		Indent int `yaml:"indent"`
-	}
-
 	MultiSelect struct {
 		Focused  string `yaml:"focused"`
 		Selected string `yaml:"selected"`

@@ -6,7 +6,7 @@ beautify:
         indent: "\t"
         prefix: ""
     .yml:
-        indent: 4
+        indent: 16
 
 colors:
     multi_select:

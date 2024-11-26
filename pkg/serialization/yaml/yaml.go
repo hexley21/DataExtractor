@@ -3,25 +3,21 @@ package yaml
 import (
 	"bytes"
 
-	"github.com/hexley21/data_extractor/pkg/config"
 	"gopkg.in/yaml.v3"
 )
 
 type YamlProcessor struct{
-	beautify config.YamlBeautify
+	indent int
 }
 
-func New(beautify *config.YamlBeautify) *YamlProcessor {
-	if beautify == nil {
-		return &YamlProcessor{config.YamlBeautify{}}
-	}
-	return &YamlProcessor{*beautify}
+func New() *YamlProcessor {
+	return &YamlProcessor{4}
 }
 
 func (p *YamlProcessor) Serialize(data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	e := yaml.NewEncoder(&buf)
-	e.SetIndent(p.beautify.Indent)
+	e.SetIndent(p.indent)
 	defer e.Close()
 
 	if err := e.Encode(data); err != nil {

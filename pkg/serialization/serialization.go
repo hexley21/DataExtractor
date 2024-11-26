@@ -32,10 +32,7 @@ func GetProcessor(fileExtension string, cfg config.Beautify, beautify bool) (Pro
 		}
 		return json.New(nil), nil
 	case ".yaml", ".yml":
-		if beautify {
-			return yaml.New(&cfg.Yaml), nil
-		}
-		return yaml.New(nil), nil
+		return yaml.New(), nil
 	}
 	return nil, ErrUnsuportedExtension
 }
