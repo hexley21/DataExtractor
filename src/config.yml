@@ -1,0 +1,10 @@
+app_name: DataExtractor
+cli_name: data-extractor
+
+beautify:
+    .json:
+        indent: "\t"
+        prefix: ""
+    else:
+        indent: "\t"
+        prefix: ""
