@@ -1,19 +1,18 @@
 app_name: DataExtractor
-cli_name: data-extractor
+cli_name: datex
 
 beautify:
     .json:
         indent: "\t"
         prefix: ""
-    else:
-        indent: "\t"
-        prefix: ""
+    .yml:
+        indent: 4
 
 colors:
     multi_select:
         .json:
             focused: "#FFE31A"
             selected: "#F09319"
-        else:
-            focused: "#01FAC6"
-            selected: "170"
+        .yml:
+            focused: "#E88EED"
+            selected: "#F9626C"
