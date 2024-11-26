@@ -1,8 +1,11 @@
 # DataExtractor
-A CLI that extracts a chosen fields from a JSON file (YAML and other extensions comming soon)
+A CLI that extracts fields you specify from any file you give.
 
 ## Install
 Go to the [releases](https://github.com/hexley21/DataExtractor/releases) and download any version you want in accordance to your machine.
+
+## Support
+For now, only `JSON` and `YAML` files are supported
 
 ## Usage
 ```
