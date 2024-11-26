@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type YamlProcessor struct{
+type YamlProcessor struct {
 	indent int
 }
 

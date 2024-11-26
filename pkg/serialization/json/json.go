@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-type JsonProcessor struct{
+type JsonProcessor struct {
 	indent string
 }
 
 func New(indent int) *JsonProcessor {
 	if (indent % 4) == 0 {
 		return &JsonProcessor{strings.Repeat("\t", indent/4)}
-	} 
+	}
 	return &JsonProcessor{strings.Repeat(" ", indent)}
 }
 
