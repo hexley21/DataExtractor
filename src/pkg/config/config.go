@@ -9,6 +9,14 @@ type (
 		AppName  string              `yaml:"app_name"`
 		CliName  string              `yaml:"cli_name"`
 		Beautify map[string]Beautify `yaml:"beautify"`
+		Colors   struct {
+			MultiSelect map[string]MultiSelect `yaml:"multi_select"`
+		}
+	}
+
+	MultiSelect struct {
+		Focused  string `yaml:"focused"`
+		Selected string `yaml:"selected"`
 	}
 
 	Beautify struct {

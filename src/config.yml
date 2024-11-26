@@ -8,3 +8,12 @@ beautify:
     else:
         indent: "\t"
         prefix: ""
+
+colors:
+    multi_select:
+        .json:
+            focused: "#FFE31A"
+            selected: "#F09319"
+        else:
+            focused: "#01FAC6"
+            selected: "170"
