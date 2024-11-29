@@ -29,6 +29,9 @@ build/all/batch:
 	set CGO_ENABLED=0&& set GOOS=linux&& set GOARCH=arm&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_linux_arm.exe ./main.go
 	set CGO_ENABLED=0&& set GOOS=linux&& set GOARCH=arm64&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_linux_arm64.exe ./main.go
 
+	set CGO_ENABLED=0&& set GOOS=darwin&& set GOARCH=amd64&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_darwin_amd64.exe ./main.go
+	set CGO_ENABLED=0&& set GOOS=darwin&& set GOARCH=arm64&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_darwin_arm64.exe ./main.go
+
 	set CGO_ENABLED=0&& set GOOS=windows&& set GOARCH=386&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_386.exe ./main.go
 	set CGO_ENABLED=0&& set GOOS=windows&& set GOARCH=amd64&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_amd64.exe ./main.go
 	set CGO_ENABLED=0&& set GOOS=windows&& set GOARCH=arm&& go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_arm.exe ./main.go \
@@ -39,6 +42,9 @@ build/all/bash:
 	CGO_ENABLED=0 GOOS=linux GOARCH=arm go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_linux_arm.exe ./main.go
 	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_linux_arm64.exe ./main.go
 
-	set CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_386.exe ./main.go
-	set CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_amd64.exe ./main.go
-	set CGO_ENABLED=0 GOOS=windows GOARCH=arm go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_arm.exe ./main.go \
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_darwin_amd64.exe ./main.go
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_darwin_arm64.exe ./main.go
+
+	CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_386.exe ./main.go
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_amd64.exe ./main.go
+	CGO_ENABLED=0 GOOS=windows GOARCH=arm go build -ldflags="-s -w" -installsuffix cgo -o ./bin/${CLI_NAME}_windows_arm.exe ./main.go \
